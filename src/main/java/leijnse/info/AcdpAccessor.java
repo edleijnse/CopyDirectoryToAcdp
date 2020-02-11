@@ -16,7 +16,7 @@ public class AcdpAccessor {
         Path myPath = Paths.get(myLayout);
         int anzColumns = 0;
 
-        try (Database db = Database.open(myPath, 0,false)) {
+        try (Database db = Database.open(myPath, 1,false)) {
             Table myTable = db.getTable("Image");
             // System.out.println("Number of columns: " + myTable.getColumns().length);
             anzColumns = myTable.getColumns().length;
@@ -28,7 +28,7 @@ public class AcdpAccessor {
     public void writeRowToImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId){
         Path myPath = Paths.get(myLayout);
 
-        try (Database db = Database.open(myPath, 0,false)) {
+        try (Database db = Database.open(myPath, 1,false)) {
             Table myTable = db.getTable("Image");
             myTable.insert(myDirectory, myFile, myId);
             // System.out.println("Number of columns: " + myTable.getColumns().length);
@@ -42,7 +42,7 @@ public class AcdpAccessor {
         Path myPath = Paths.get(myLayout);
         int anzahlRows = 0;
 
-        try (Database db = Database.open(myPath, 0,false)) {
+        try (Database db = Database.open(myPath, 1,false)) {
             Table myTable = db.getTable("Image");
             //  myTable.iterator().next();
             Column<?> myDirectoryColumn = myTable.getColumn("Directory");
