@@ -1,9 +1,9 @@
 package leijnse.info;
-import acdp.Database;
-import acdp.Table;
+import acdp.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +20,46 @@ public class AcdpAccessor {
             System.out.println("Number of columns: " + myTable.getColumns().length);
             System.out.println("Number of rows: " + myTable.numberOfRows());
             //do something with myTable
+        }
+    }
+    public void writeRowToImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId){
+        Path myPath = Paths.get(myLayout);
 
+        try (Database db = Database.open(myPath, 0,false)) {
+            Table myTable = db.getTable("Image");
+            myTable.insert(myDirectory, myFile, myId);
+            System.out.println("Number of columns: " + myTable.getColumns().length);
+            System.out.println("Number of rows: " + myTable.numberOfRows());
+            db.forceWrite();
+            //do something with myTable
+        }
+    }
+
+    public void readAllRowsFromImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId){
+        Path myPath = Paths.get(myLayout);
+
+        try (Database db = Database.open(myPath, 0,false)) {
+            Table myTable = db.getTable("Image");
+            //  myTable.iterator().next();
+            Column<?> myDirectoryColumn = myTable.getColumn("Directory");
+            Column<?> myFileColumn = myTable.getColumn("File");
+            Column<?> myID = myTable.getColumn("ID");
+
+            System.out.println("myDirectoryColumn: " + myDirectoryColumn.toString());
+
+            Table.TableIterator myIterator = myTable.iterator(myDirectoryColumn,myFileColumn,myID);
+            while (myIterator.hasNext()){
+                System.out.println("iterator has next");
+                Row myRow = myIterator.next();
+                String fieldDirectory = (String) myRow.get(myDirectoryColumn);
+                String fieldFile = (String) myRow.get(myFileColumn);
+                BigInteger fieldID = (BigInteger) myRow.get(myID);
+                System.out.println("field Directory: " + fieldDirectory);
+                System.out.println("field File: " + fieldFile);
+                System.out.println("field ID: " + fieldID);
+            }
+
+            //do something with myTable
         }
     }
     public void copyLayout(String fromLayout, String toLayout) throws IOException {
