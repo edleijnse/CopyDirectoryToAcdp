@@ -3,7 +3,7 @@ version = 1.0
 consistencyNumber = 0
 cipherFactoryClassName = example.ImageDB$CipherFactory
 cipherChallenge = 29jxv5pqc56i69ys
-forceWriteCommit = on
+forceWriteCommit = off
 recFile = rec
 tables
 	Image
