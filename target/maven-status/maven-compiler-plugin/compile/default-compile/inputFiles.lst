@@ -27,6 +27,7 @@
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/exceptions/package-info.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/types/Type.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/Column.java
+/home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/example/ImageTable.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/FileIO.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/exceptions/DanglingCommentException.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/store/wr/WRReadOp.java
@@ -112,6 +113,7 @@
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/Refactor_.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/ColVal.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/misc/Layout.java
+/home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/example/ImageDB.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/store/wr/VerifyIntegrity.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/exceptions/UnitBrokenException.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/exceptions/ACDPException.java

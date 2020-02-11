@@ -3,8 +3,6 @@ package leijnse.info;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class AcdpAccessorTest {
 
     @Before
@@ -12,9 +10,9 @@ public class AcdpAccessorTest {
     }
 
     @Test
-    public void readTableColums() {
+    public void readImageTableColums() {
         AcdpAccessor testee = new AcdpAccessor();
         // testee.readTableColums("/home/parallels/IdeaProjects/acdpTest/layout", "");
-        testee.readTableColums("src/data/acdpTest/layout", "");
+        testee.readImageTableColums("src/data/acdpImage/layout", "");
     }
 }

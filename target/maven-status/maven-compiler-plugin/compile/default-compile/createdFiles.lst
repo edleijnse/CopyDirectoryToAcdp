@@ -167,12 +167,14 @@ acdp/internal/store/wr/FLFileAccommodate$SingleExcentric$RespectGapLengthGtExces
 acdp/internal/store/wr/ColModify$V0_P.class
 acdp/internal/store/wr/UpdateAllColVals.class
 acdp/internal/Refactor_$Names_.class
+example/ImageTable.class
 acdp/internal/store/wr/ColModify$BMProvider.class
 acdp/internal/store/wr/FLFileAccommodate$SingleConcentric$RespectGapExcess.class
 acdp/internal/store/wr/FLFileSpace.class
 acdp/exceptions/IllegalReferenceException.class
 example/PersonTable.class
 acdp/internal/types/AbstractArrayType.class
+example/ImageDB$CipherFactory.class
 acdp/internal/store/wr/FLDataReader.class
 acdp/internal/store/ro/Unpacker.class
 acdp/Table$TableIterator.class
@@ -336,6 +338,7 @@ acdp/internal/misc/array/Rounder.class
 acdp/types/Type$Scheme.class
 acdp/internal/types/DoubleType_.class
 acdp/internal/store/wr/ChangeRefLen$OUc$Writer.class
+example/ImageDB.class
 acdp/Ref.class
 leijnse/info/AcdpAccessor.class
 acdp/internal/types/TypeFactory.class
