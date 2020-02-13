@@ -29,7 +29,20 @@ public class AcdpAccessorTest {
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory1","file1", BigInteger.valueOf(1));
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory2","file2", BigInteger.valueOf(2));
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory3","file3", BigInteger.valueOf(3));
-        int anzRows = testee.readAllRowsFromImageTable("src/data/acdpRun/layout", "directory1","file1", BigInteger.valueOf(1));
+        int anzRows = testee.readAllRowsFromImageTable("src/data/acdpRun/layout");
         assertEquals(3,anzRows);
+    }
+    @Test
+    public void writeRowsToImageTableAndreadSomeRowsFromImageTable() {
+        AcdpAccessor testee = new AcdpAccessor();
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory1","file1", BigInteger.valueOf(1));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory2","file2", BigInteger.valueOf(2));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory3","file1", BigInteger.valueOf(3));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory3","file2", BigInteger.valueOf(4));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory4","file4", BigInteger.valueOf(5));
+
+
+        int anzRows = testee.readSomeRowsFromImageTable("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4));
+        assertEquals(4,anzRows);
     }
 }
