@@ -29,8 +29,12 @@ public class AcdpAccessorTest {
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory1","file1", BigInteger.valueOf(1));
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory2","file2", BigInteger.valueOf(2));
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory3","file3", BigInteger.valueOf(3));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory1","file1", BigInteger.valueOf(4));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory2","file2", BigInteger.valueOf(5));
+        testee.writeRowToImageTable("src/data/acdpRun/layout", "directory3","file3", BigInteger.valueOf(6));
+
         int anzRows = testee.readAllRowsFromImageTable("src/data/acdpRun/layout");
-        assertEquals(3,anzRows);
+        assertEquals(6,anzRows);
     }
     @Test
     public void writeRowsToImageTableAndreadSomeRowsFromImageTable() {

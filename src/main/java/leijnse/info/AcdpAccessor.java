@@ -122,6 +122,7 @@ public class AcdpAccessor {
                 System.out.println("field ID: " + fieldID);
             });
         }
+
         return anzahlRows[0];
     }
 
