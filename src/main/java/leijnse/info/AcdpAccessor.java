@@ -39,6 +39,7 @@ public class AcdpAccessor {
             // System.out.println("Number of columns: " + myTable.getColumns().length);
             // System.out.println("Number of rows: " + myTable.numberOfRows());
             db.forceWrite();
+            db.close();
             //do something with myTable
         }
     }
