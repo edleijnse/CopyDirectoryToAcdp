@@ -13,13 +13,15 @@ public class CopyDirectoryTest {
 
     @Before
     public void setUp() throws Exception {
+        AcdpAccessor acdpPrepare = new AcdpAccessor();
+        acdpPrepare.copyLayout("src/data/acdpImage", "src/data/acdpRun");
     }
 
     @Test
     public void copyFilesToACDPTest() {
         Instant start = Instant.now();
         // testee.copyFilesToACDP("/media/psf/MyDrive01/BilderImport/Annalis/Bilder nachbearbeitet", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
-        testee.copyFilesToACDP("src/data/copyDirectoryTest", "dummy");
+        testee.copyFilesToACDP("src/data/copyDirectoryTest", "src/data/acdpRun/layout");
         Instant finish = Instant.now();
         long timeElapsed = Duration.between(start, finish).toMillis();
         System.out.println("Duration (millisec): " + timeElapsed );

@@ -18,6 +18,9 @@ tables
 				name = ID
 				typeDesc = BigInteger!i20v
 				typeFactoryClassName = example.BigIntegerType
+			.
+				name = IptcKeywords
+				typeDesc = sno4
 		store
 			nobsRowRef = 8
 			nobsOutrowPtr = 8

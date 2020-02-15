@@ -2,6 +2,7 @@ package leijnse.info;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,13 +40,15 @@ public class CopyDirectory {
         }
         System.out.println("handleDirectoryCopyFile completed");
     }
-    public void copyFilesToACDP(String startsWithDirectory, String copyDirectory) {
+    public void copyFilesToACDP(String startsWithDirectory, String layOut) {
         try {
             // https://www.codejava.net/java-core/concurrency/java-concurrency-understanding-thread-pool-and-executors
             // Better: completable Future https://www.deadcoderising.com/java8-writing-asynchronous-code-with-completablefuture/
 
 
             System.out.println("handleDirectoryCopyFileToDatabase start: " + startsWithDirectory) ;
+            AcdpAccessor acdpAccessor = new AcdpAccessor();
+            final int[] ii = {0};
             Files.walk(Paths.get(startsWithDirectory))
                     .filter(p -> {
                         return ((p.toString().toLowerCase().endsWith(".cr2")) ||
@@ -63,17 +66,20 @@ public class CopyDirectory {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            String myIptcKeywords = "";
                             if (pictureMetaData.getIPTC_KEYWORDS().isPresent()){
-                                System.out.println("IPTC KEYWORDS: " + pictureMetaData.getIPTC_KEYWORDS().get());
+                                myIptcKeywords = pictureMetaData.getIPTC_KEYWORDS().get();
                             }
 
                             String sourceFileAbsolutePath = "";
                             sourceFileAbsolutePath = file.getAbsolutePath();
                             String sourceFileName = file.getName();
                             String sourceParentName = file.getParent();
-                            String destFile = copyDirectory + "/" + file.getName();
+                            String destFile = layOut + "/" + file.getName();
                             try {
+                                ii[0]++;
                                 System.out.println("absolute: " + sourceFileAbsolutePath + ", parent: " + sourceParentName  +", filename: " + sourceFileName);
+                                acdpAccessor.writeRowToImageTable(layOut,sourceParentName,sourceFileName, BigInteger.valueOf(ii[0]),myIptcKeywords);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

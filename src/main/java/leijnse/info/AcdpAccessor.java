@@ -30,12 +30,12 @@ public class AcdpAccessor {
         return anzColumns;
     }
 
-    public void writeRowToImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId) {
+    public void writeRowToImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId, String myIPTCKeywords ){
         Path myPath = Paths.get(myLayout);
 
         try (Database db = Database.open(myPath, -1, false)) {
             Table myTable = db.getTable("Image");
-            myTable.insert(myDirectory, myFile, myId);
+            myTable.insert(myDirectory, myFile, myId, myIPTCKeywords);
             // System.out.println("Number of columns: " + myTable.getColumns().length);
             // System.out.println("Number of rows: " + myTable.numberOfRows());
             db.forceWrite();
@@ -54,9 +54,12 @@ public class AcdpAccessor {
             Column<?> myDirectoryColumn = myTable.getColumn("Directory");
             Column<?> myFileColumn = myTable.getColumn("File");
             Column<?> myID = myTable.getColumn("ID");
+            Column<?> myIpctKeywordsColumn = myTable.getColumn("IptcKeywords");
 
 
-            Table.TableIterator myIterator = myTable.iterator(myDirectoryColumn, myFileColumn, myID);
+
+
+            Table.TableIterator myIterator = myTable.iterator(myDirectoryColumn, myFileColumn, myID, myIpctKeywordsColumn);
             while (myIterator.hasNext()) {
                 anzahlRows++;
                 System.out.println("Row " + anzahlRows);
@@ -64,9 +67,11 @@ public class AcdpAccessor {
                 String fieldDirectory = (String) myRow.get(myDirectoryColumn);
                 String fieldFile = (String) myRow.get(myFileColumn);
                 BigInteger fieldID = (BigInteger) myRow.get(myID);
+                String fiedIptcKeywords = (String) myRow.get(myIpctKeywordsColumn);
                 System.out.println("field Directory: " + fieldDirectory);
                 System.out.println("field File: " + fieldFile);
                 System.out.println("field ID: " + fieldID);
+                System.out.println("field IptcKeywords: " + fiedIptcKeywords);
 
             }
 
@@ -75,7 +80,7 @@ public class AcdpAccessor {
         return anzahlRows;
     }
 
-    public int readSomeRowsFromImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId) {
+    public int readSomeRowsFromImageTable(String myLayout, String myDirectory, String myFile, BigInteger myId, String myIptcKeyword1) {
         Path myPath = Paths.get(myLayout);
         final int[] anzahlRows = {0};
 
@@ -86,9 +91,9 @@ public class AcdpAccessor {
             Column<?> myDirectoryColumn = myTable.getColumn("Directory");
             Column<?> myFileColumn = myTable.getColumn("File");
             Column<?> myID = myTable.getColumn("ID");
+            Column<?> myIpctKeywordsColumn = myTable.getColumn("IptcKeywords");
 
-
-            Table.TableIterator myIterator = myTable.iterator(myDirectoryColumn, myFileColumn, myID);
+            Table.TableIterator myIterator = myTable.iterator(myDirectoryColumn, myFileColumn, myID, myIpctKeywordsColumn);
 
             // see sample https://www.tutorialspoint.com/convert-an-iterator-to-stream-in-java
 
@@ -97,6 +102,8 @@ public class AcdpAccessor {
                         String fieldDirectory = (String) myRow.get(myDirectoryColumn);
                         String fieldFile = (String) myRow.get(myFileColumn);
                         BigInteger fieldID = (BigInteger) myRow.get(myID);
+                        String fieldIpctKeywords =(String) myRow.get(myIpctKeywordsColumn);
+
                         if (fieldDirectory.contentEquals(myDirectory)) {
                             return true;
                         }
@@ -107,6 +114,13 @@ public class AcdpAccessor {
                         if (comparevalue == 0) {
                             return true;
                         }
+                        if (fieldIpctKeywords.contains(myIptcKeyword1.trim())){
+                            if (fieldIpctKeywords.isEmpty()){
+                                return false;
+                            }
+                            return true;
+                        }
+
 
                         return false;
                     }
@@ -117,10 +131,12 @@ public class AcdpAccessor {
                 String fieldDirectory = (String) myRow.get(myDirectoryColumn);
                 String fieldFile = (String) myRow.get(myFileColumn);
                 BigInteger fieldID = (BigInteger) myRow.get(myID);
+                String fieldIpctKeywords =(String) myRow.get(myIpctKeywordsColumn);
 
                 System.out.println("field Directory: " + fieldDirectory);
                 System.out.println("field File: " + fieldFile);
                 System.out.println("field ID: " + fieldID);
+                System.out.println("field IptcKeywords: " + fieldIpctKeywords);
             });
         }
 

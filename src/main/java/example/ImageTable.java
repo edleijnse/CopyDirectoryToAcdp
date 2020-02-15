@@ -21,7 +21,7 @@ import java.math.BigInteger;
  *
  * @author Ed Leijnse
  */
-@Setup_Table({ "Directory", "File", "ID" })
+@Setup_Table({ "Directory", "File", "ID", "IptcKeywords" })
 public final class ImageTable extends CustomTable {
 	// Must be public if Setup is used.
 	@Setup_Column("Directory")
@@ -30,6 +30,8 @@ public final class ImageTable extends CustomTable {
 	public final Column<String> FILE = CL.typeString();
 	@Setup_Column("ID")
 	public final Column<BigInteger> ID = CL.create(new BigIntegerType(false, 20));
+	@Setup_Column("IptcKeywords")
+	public final Column<String> IPTCKEYWORDS = CL.typeString();
 
 	/**
 	 * Do not create instances of this class!
@@ -39,6 +41,6 @@ public final class ImageTable extends CustomTable {
 	 * {@link PersonDB} class.
 	 */
 	public ImageTable() {
-		initialize(DIRECTORY, FILE, ID);
+		initialize(DIRECTORY, FILE, ID, IPTCKEYWORDS);
 	}
 }

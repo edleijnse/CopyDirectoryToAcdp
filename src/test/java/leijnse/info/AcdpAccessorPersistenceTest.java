@@ -19,19 +19,19 @@ public class AcdpAccessorPersistenceTest {
     public void readImageTableColums() {
         AcdpAccessor testee = new AcdpAccessor();
         int anzColumns = testee.readImageTableColums("src/data/acdpRun/layout", "");
-        assertEquals(3, anzColumns);
+        assertEquals(4, anzColumns);
     }
 
     @Test
     public void readAllRowsFromImageTable() {
         AcdpAccessor testee = new AcdpAccessor();
         int anzRows = testee.readAllRowsFromImageTable("src/data/acdpRun/layout");
-        assertEquals(6,anzRows);
+        assertEquals(5,anzRows);
     }
     @Test
     public void readSomeRowsFromImageTable() {
         AcdpAccessor testee = new AcdpAccessor();
-        int anzRows = testee.readSomeRowsFromImageTable("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4));
+        int anzRows = testee.readSomeRowsFromImageTable("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
         assertEquals(4,anzRows);
     }
 }
