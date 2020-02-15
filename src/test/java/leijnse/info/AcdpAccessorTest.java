@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-import java.io.IOException;
 import java.math.BigInteger;
 import static junit.framework.TestCase.assertEquals;
 
@@ -46,7 +45,7 @@ public class AcdpAccessorTest {
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory4","file4", BigInteger.valueOf(5),"");
 
 
-        int anzRows = testee.readSomeRowsFromImageTable("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
+        int anzRows = testee.readSomeRowsFromImageTableAllKeywords("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
         assertEquals(4,anzRows);
     }
 }

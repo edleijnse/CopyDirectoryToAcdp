@@ -31,7 +31,7 @@ public class AcdpAccessorPersistenceTest {
     @Test
     public void readSomeRowsFromImageTable() {
         AcdpAccessor testee = new AcdpAccessor();
-        int anzRows = testee.readSomeRowsFromImageTable("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
+        int anzRows = testee.readSomeRowsFromImageTableAllKeywords("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
         assertEquals(4,anzRows);
     }
 }
