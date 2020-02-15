@@ -13,8 +13,8 @@ public class MainApp {
         main.addRouteBuilder(new MyRouteBuilder());
         main.run(args);*/
         CopyDirectory copyDirectory = new CopyDirectory();
-        copyDirectory.copyFilesToDirectory("/media/psf/MyDrive01/BilderImport/Annalis/Bilder nachbearbeitet", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
-
+        // copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/BilderImport/Annalis/Bilder nachbearbeitet", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
+        copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/Annalis Bilder/BilderImport/AnnalisImport", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
 
     }
 

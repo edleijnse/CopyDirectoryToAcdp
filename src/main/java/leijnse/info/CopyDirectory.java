@@ -56,6 +56,17 @@ public class CopyDirectory {
                     .forEach(item -> {
                         File file = item.toFile();
                         if (file.isFile()) {
+                            PictureMetaData pictureMetaData = new PictureMetaData();
+                            ExtractPictureMetaData extractPictureMetaData = new ExtractPictureMetaData();
+                            try {
+                                pictureMetaData = extractPictureMetaData.getPictureMetaDataExif(file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (pictureMetaData.getIPTC_KEYWORDS().isPresent()){
+                                System.out.println("IPTC KEYWORDS: " + pictureMetaData.getIPTC_KEYWORDS().get());
+                            }
+
                             String sourceFileAbsolutePath = "";
                             sourceFileAbsolutePath = file.getAbsolutePath();
                             String sourceFileName = file.getName();

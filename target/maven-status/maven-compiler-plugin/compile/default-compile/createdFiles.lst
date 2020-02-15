@@ -115,6 +115,7 @@ acdp/internal/types/TypeFactory$1.class
 acdp/design/SimpleType$TypeDesc.class
 acdp/internal/store/wr/ColInsert$SimpleColUpdater.class
 acdp/internal/store/wr/ColInsert$BitmapUpdater.class
+leijnse/info/PictureMetaData.class
 acdp/internal/store/wr/ColModify$NiSet_V1_P.class
 acdp/internal/Database_$1.class
 acdp/Information$WRStoreInfo.class
@@ -304,6 +305,7 @@ acdp/internal/types/ArrayOfRefType_.class
 acdp/internal/store/wr/ColModify$V1FVFF_U.class
 acdp/types/Type.class
 acdp/internal/store/wr/Delete.class
+leijnse/info/ExtractPictureMetaData.class
 acdp/internal/store/wr/VerifyIntegrity.class
 acdp/design/SimpleType$TypeFromDesc.class
 acdp/exceptions/ShutdownException.class

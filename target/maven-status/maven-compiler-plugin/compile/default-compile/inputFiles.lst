@@ -79,6 +79,7 @@
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/store/wr/Insert.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/misc/array/Rounder4.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/CryptoProvider.java
+/home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/leijnse/info/PictureMetaData.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/store/wr/BytesToObject.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/design/package-info.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/types/ByteType_.java
@@ -146,4 +147,5 @@
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/FileSpaceStateTracker.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/Buffer.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/Ref.java
+/home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/leijnse/info/ExtractPictureMetaData.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/store/ro/ROStore.java
