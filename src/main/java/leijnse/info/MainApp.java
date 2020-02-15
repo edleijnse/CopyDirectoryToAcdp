@@ -14,7 +14,7 @@ public class MainApp {
         main.run(args);*/
         CopyDirectory copyDirectory = new CopyDirectory();
         // copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/BilderImport/Annalis/Bilder nachbearbeitet", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
-        copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/Annalis Bilder/BilderImport/AnnalisImport", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
+        copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/Annalis Bilder/BilderExportBearbeitet/Annalis", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
 
     }
 
