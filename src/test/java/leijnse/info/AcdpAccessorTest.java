@@ -5,6 +5,8 @@ import org.junit.Test;
 
 
 import java.math.BigInteger;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 
 public class AcdpAccessorTest {
@@ -44,8 +46,7 @@ public class AcdpAccessorTest {
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory3","file2", BigInteger.valueOf(4),"greem.leaves");
         testee.writeRowToImageTable("src/data/acdpRun/layout", "directory4","file4", BigInteger.valueOf(5),"");
 
-
-        int anzRows = testee.readSomeRowsFromImageTableAllKeywords("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
-        assertEquals(4,anzRows);
+        List<ImageRow>  rowsWithAllKeywords = testee.selectFromImageTable(true,"src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
+        assertEquals(4,rowsWithAllKeywords.size());
     }
 }

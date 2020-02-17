@@ -3,7 +3,9 @@ package leijnse.info;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.imageio.ImageReader;
 import java.math.BigInteger;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -29,9 +31,9 @@ public class AcdpAccessorPersistenceTest {
         assertEquals(5,anzRows);
     }
     @Test
-    public void readSomeRowsFromImageTable() {
+    public void selectFromImageTableSomeKeywords() {
         AcdpAccessor testee = new AcdpAccessor();
-        int anzRows = testee.readSomeRowsFromImageTableAllKeywords("src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
-        assertEquals(4,anzRows);
+        List<ImageRow>  rowsWithAllKeywords= testee.selectFromImageTable(false, "src/data/acdpRun/layout", "directory2","file1", BigInteger.valueOf(4),"building");
+        assertEquals(4,rowsWithAllKeywords.size());
     }
 }
