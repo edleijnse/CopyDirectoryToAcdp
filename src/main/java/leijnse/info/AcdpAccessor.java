@@ -128,9 +128,11 @@ public class AcdpAccessor {
                     final String kws = row.get(t.IPTCKEYWORDS);
                     Map<String, String> keyWordMap = new TreeMap<>();
                     ArrayList<String> myKeywordsArray = new ArrayList<>(Arrays.asList(kws.split("\\.")));
-                    for (String keyWord : myKeywordsArray){
+
+                    for (String keyWord : myKeywordsArray) {
                         keyWordMap.put(keyWord, keyWord);
                     }
+
 
                     boolean oneMatch = false, allMatch = true;
                     for (String kw : myKeywords) {
@@ -138,10 +140,10 @@ public class AcdpAccessor {
                         String keyWordMapEntry = keyWordMap.get(kw);
                         boolean match;
 
-                        if (keyWordMapEntry==null){
+                        if (keyWordMapEntry == null) {
                             match = false;
                         } else {
-                            if (keyWordMapEntry.isEmpty()){
+                            if (keyWordMapEntry.isEmpty()) {
                                 match = false;
                             } else {
                                 match = true;

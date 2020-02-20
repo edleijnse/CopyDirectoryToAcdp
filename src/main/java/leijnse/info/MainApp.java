@@ -23,13 +23,14 @@ public class MainApp {
         // copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/BilderImport/Annalis/Bilder nachbearbeitet", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
         // copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/Annalis Bilder/BilderExportBearbeitet/Annalis", "/media/psf/MyDrive01/acdp/acdpImage/layout");
 
+        copyDirectory.copyFilesDirectoryNameToACDP("/media/psf/MyDrive01/MyDrive01Original/bilderexport", "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         AcdpAccessor acdpAccessor = new AcdpAccessor();
-        // acdpAccessor.readAllRowsFromImageTable("/media/psf/MyDrive01/acdp/acdpImage/layout");
-        List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(false,"/media/psf/MyDrive01/acdp/acdpImage/layout", "-","-", BigInteger.valueOf(0),"building, black, door, graffiti");
+        // acdpAccessor.readAllRowsFromImageTable("/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
+        // List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(false,"/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Hochzeit");
         XStream xStream = new XStream();
-        System.out.println(xStream.toXML(imageWithSomeKeywords));
+        // System.out.println(xStream.toXML(imageWithSomeKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
-        List<ImageRow> imageWithAllKeywords = acdpAccessor.selectFromImageTable(true, "/media/psf/MyDrive01/acdp/acdpImage/layout", "-","-", BigInteger.valueOf(0),"building, black, door, graffiti");
+        List<ImageRow> imageWithAllKeywords = acdpAccessor.selectFromImageTable(false, "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Locarno,Valentina");
         System.out.println(xStream.toXML(imageWithAllKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
 
