@@ -8,6 +8,7 @@ package example;
 
 import acdp.Column;
 import acdp.Ref;
+import acdp.Row;
 import acdp.design.CL;
 import acdp.design.CustomTable;
 import acdp.tools.Setup.Setup_Column;
@@ -15,6 +16,7 @@ import acdp.tools.Setup.Setup_Table;
 import acdp.types.Type.Scheme;
 
 import java.math.BigInteger;
+import java.util.stream.Stream;
 
 /**
  * The Image Table
@@ -42,5 +44,12 @@ public final class ImageTable extends CustomTable {
 	 */
 	public ImageTable() {
 		initialize(DIRECTORY, FILE, ID, IPTCKEYWORDS);
+	}
+	@Override
+
+	public final Stream<Row> rows(Column<?>... columns) {
+
+		return super.rows(columns);
+
 	}
 }

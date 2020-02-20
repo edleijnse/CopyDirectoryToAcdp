@@ -145,6 +145,7 @@
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/leijnse/info/CopyDirectory.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/exceptions/ImplementationRestrictionException.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/FileSpaceStateTracker.java
+/home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/leijnse/info/ImageRow.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/internal/Buffer.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/acdp/Ref.java
 /home/parallels/IdeaProjects/CopyDirectoryToAcdp/src/main/java/leijnse/info/ExtractPictureMetaData.java

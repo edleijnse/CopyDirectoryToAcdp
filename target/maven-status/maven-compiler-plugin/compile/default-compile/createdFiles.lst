@@ -306,6 +306,7 @@ acdp/internal/store/wr/ColModify$V1FVFF_U.class
 acdp/types/Type.class
 acdp/internal/store/wr/Delete.class
 leijnse/info/ExtractPictureMetaData.class
+leijnse/info/ImageRow.class
 acdp/internal/store/wr/VerifyIntegrity.class
 acdp/design/SimpleType$TypeFromDesc.class
 acdp/exceptions/ShutdownException.class

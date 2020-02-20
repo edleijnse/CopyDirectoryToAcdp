@@ -69,7 +69,7 @@ public final class ImageDB extends CustomDatabase {
 	@Setup_TableDeclaration("Image")
 	public final ImageTable imageTable = new ImageTable();
 
-	ImageDB(Path mainFile, int opMode, boolean writeProtect,
+	public ImageDB(Path mainFile, int opMode, boolean writeProtect,
             int consistencyNumber) {
 		open(mainFile, opMode, writeProtect, consistencyNumber, imageTable);
 	}

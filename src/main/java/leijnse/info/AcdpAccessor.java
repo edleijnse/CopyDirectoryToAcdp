@@ -1,6 +1,8 @@
 package leijnse.info;
 
 import acdp.*;
+import example.ImageDB;
+import example.ImageTable;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,8 +81,73 @@ public class AcdpAccessor {
         return anzahlRows;
     }
 
+    /*
+    VORBEREITUNG: (Email von Beat Hörmann an Ed Leijnsse, 2020-02-19)
+    Du liebst offenbar die "Stream Pipeline"! Ich habe deshalb diese Methode noch stärker
+    im Sinne von "lambda expressions", "method references" und "streams" geschrieben.
+    Mir geht es aber vor allem um ACDP.
+    Ich habe deshalb in meiner Version der selectFromImageTable-Methode mit Hilfe der
+    Methode Table.rows(Column<?>... columns) direkt einen stream of rows Stream<Row> generiert.
+    Zweitens habe ich die DB nicht "weakly typed" geöffnet,
+    sondern "strongly typed", ich habe also nicht die Interfaces Database und Table verwendet,
+    wie Du, sondern Deine "custom database class" example.ImageDB
+    und Deine "custom table class" example.ImageTable.
+    Dazu musste ich den ImageDB-Konstruktor public machen und in der
+    ImageTable-Klasse die rows-Methode veröffentlichen:
 
-    public List<ImageRow> selectFromImageTable(boolean allKeywords, String myLayout, String myDirectory, String myFile, BigInteger myId, String myIptcKeywords) {
+    @Override
+    public final Stream<Row> rows(Column<?>... columns) {
+    return super.rows(columns);
+}
+     */
+    public List<ImageRow> selectFromImageTable(boolean allKeywords, String myLayout,
+
+                                               String myDirectory, String myFile, BigInteger myId,
+
+                                               String myIptcKeywords) {
+
+        final List<String> myKeywords = Arrays.stream(myIptcKeywords.split(",")).
+                map(String::trim).
+                filter(s -> !s.isEmpty()).
+                collect(Collectors.toList());
+
+
+        try (ImageDB db = new ImageDB(Paths.get(myLayout), -1, false, 0)) {
+
+            final ImageTable t = db.imageTable;
+
+            return t.rows(t.DIRECTORY, t.FILE, t.ID, t.IPTCKEYWORDS).filter(row -> {
+                if (row.get(t.DIRECTORY).equals(myDirectory) ||
+                        row.get(t.FILE).equals(myFile) ||
+                        row.get(t.ID).compareTo(myId) == 0)
+                    return true;
+
+                else if (myKeywords.isEmpty())
+                    return false;
+                else {
+                    final String kws = row.get(t.IPTCKEYWORDS);
+                    boolean oneMatch = false, allMatch = true;
+                    for (String kw : myKeywords) {
+                        final boolean match = kws.contains(kw);
+                        oneMatch |= match;
+                        allMatch &= match;
+                    }
+                    return allKeywords && allMatch || !allKeywords && oneMatch;
+
+                }
+            }).collect(ArrayList::new, (list, row) -> {
+                ImageRow myImageRow = new ImageRow();
+                myImageRow.setDirectory(row.get(t.DIRECTORY));
+                myImageRow.setFile(row.get(t.FILE));
+                myImageRow.setId(row.get(t.ID).toString());
+                myImageRow.setIptcKeywords(row.get(t.IPTCKEYWORDS));
+
+                list.add(myImageRow);
+            }, ArrayList::addAll);
+        }
+    }
+
+    public List<ImageRow> selectFromImageTableOriginalEd(boolean allKeywords, String myLayout, String myDirectory, String myFile, BigInteger myId, String myIptcKeywords) {
         Path myPath = Paths.get(myLayout);
         List<ImageRow> myImageRows = new ArrayList();
 
