@@ -125,36 +125,28 @@ public class AcdpAccessor {
                 else if (myKeywords.isEmpty())
                     return false;
                 else {
-                    final String kws = row.get(t.IPTCKEYWORDS);
-                    Map<String, String> keyWordMap = new TreeMap<>();
-                    ArrayList<String> myKeywordsArray = new ArrayList<>(Arrays.asList(kws.split("\\.")));
+                    final Set<String> kwSet = new HashSet<>();
 
-                    for (String keyWord : myKeywordsArray) {
-                        keyWordMap.put(keyWord, keyWord);
+                    for (String kw : row.get(t.IPTCKEYWORDS).split("\\.")) {
+                        if (kw != null && !kw.isEmpty()) {
+                            kwSet.add(kw);
+                        }
+                    }
+
+                    if (kwSet.isEmpty()) {
+                        return false;
                     }
 
 
+// kwSet is not empty and does not contain null nor an empty string.
                     boolean oneMatch = false, allMatch = true;
+
                     for (String kw : myKeywords) {
-                        // final boolean match = kws.contains(kw);
-                        String keyWordMapEntry = keyWordMap.get(kw);
-                        boolean match;
-
-                        if (keyWordMapEntry == null) {
-                            match = false;
-                        } else {
-                            if (keyWordMapEntry.isEmpty()) {
-                                match = false;
-                            } else {
-                                match = true;
-                            }
-                        }
-
+                        final boolean match = kwSet.contains(kw);
                         oneMatch |= match;
                         allMatch &= match;
                     }
                     return allKeywords && allMatch || !allKeywords && oneMatch;
-
                 }
             }).collect(ArrayList::new, (list, row) -> {
                 ImageRow myImageRow = new ImageRow();
