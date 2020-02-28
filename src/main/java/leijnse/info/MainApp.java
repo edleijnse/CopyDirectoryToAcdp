@@ -1,7 +1,7 @@
 package leijnse.info;
 
 import acdp.Row;
-import com.thoughtworks.xstream.XStream;
+// import com.thoughtworks.xstream.XStream;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -27,11 +27,11 @@ public class MainApp {
         AcdpAccessor acdpAccessor = new AcdpAccessor();
         // acdpAccessor.readAllRowsFromImageTable("/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         // List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(false,"/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Hochzeit");
-        XStream xStream = new XStream();
+        // XStream xStream = new XStream();
         // System.out.println(xStream.toXML(imageWithSomeKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
         List<ImageRow> imageWithAllKeywords = acdpAccessor.selectFromImageTable(false, "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Locarno,Valentina");
-        System.out.println(xStream.toXML(imageWithAllKeywords));
+        // System.out.println(xStream.toXML(imageWithAllKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
 
     }
