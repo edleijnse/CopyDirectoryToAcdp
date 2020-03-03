@@ -1,5 +1,7 @@
 package leijnse.info;
 
+import acdp.misc.ACDP;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -9,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class CopyDirectory {
+    String subscriptionKey;
+
     public void copyFilesToDirectory(String startsWithDirectory, String copyDirectory) {
         try {
             // https://www.codejava.net/java-core/concurrency/java-concurrency-understanding-thread-pool-and-executors
@@ -68,7 +72,7 @@ public class CopyDirectory {
                             }
                             String myIptcKeywords = "";
                             if (pictureMetaData.getIPTC_KEYWORDS().isPresent()){
-                                myIptcKeywords = pictureMetaData.getIPTC_KEYWORDS().get();
+                                myIptcKeywords = pictureMetaData.getIPTC_KEYWORDS().get().replaceAll(" ","");
                             }
 
                             String sourceFileAbsolutePath = "";
@@ -78,6 +82,7 @@ public class CopyDirectory {
                             try {
                                 ii[0]++;
                                 System.out.println("absolute: " + sourceFileAbsolutePath + ", parent: " + sourceParentName  +", filename: " + sourceFileName);
+                                System.out.println("keywords: " + myIptcKeywords);
                                 acdpAccessor.writeRowToImageTable(layOut,sourceParentName,sourceFileName, BigInteger.valueOf(ii[0]),myIptcKeywords);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -90,6 +95,93 @@ public class CopyDirectory {
             e.printStackTrace();
         }
         System.out.println("handleDirectoryCopyFile completed");
+    }
+    public void addVisionTagsToFiles(String startsWithDirectory, String tempDirectory) {
+        try {
+
+
+            System.out.println("addVisionTagsToFiles start: " + startsWithDirectory) ;
+
+            final int[] ii = {0};
+            Files.walk(Paths.get(startsWithDirectory))
+                    .filter(p -> {
+                        return ((p.toString().toLowerCase().endsWith(".cr2")) ||
+                                (p.toString().toLowerCase().endsWith(".cr3")) ||
+                                (p.toString().toLowerCase().endsWith(".jpg_original")) ||
+                                (p.toString().toLowerCase().endsWith(".jpg")));
+                    })
+                    .forEach(item -> {
+                        File file = item.toFile();
+                        if (file.isFile()) {
+                            PictureMetaData pictureMetaData = new PictureMetaData();
+                            ExtractPictureMetaData extractPictureMetaData = new ExtractPictureMetaData();
+                            try {
+                                pictureMetaData = extractPictureMetaData.getPictureMetaDataExif(file);
+                                ExtractPictureContentData extract = new ExtractPictureContentData(startsWithDirectory,"");
+                                String mySubscriptionKey = this.getSubscriptionKey();
+                                extract.setSubstringKey(mySubscriptionKey);
+                                File fileCompressed = extract.compressJpg(file);
+                                try {
+                                    PictureMetaData myMetadata = extract.getPictureContent(fileCompressed);
+
+                                    String newDest = tempDirectory + "/" + file.getName();
+                                    copyFile(file.getAbsolutePath(), newDest);
+                                    Command myCommand = new Command(startsWithDirectory);
+
+                                    String doExecute =  "exiftool " +  newDest;
+                                    if (myMetadata.getVISION_TAGS().isPresent()) {
+
+                                        String[] arrOfStr = myMetadata.getVISION_TAGS().get().split("%");
+
+                                        for (String keyword : arrOfStr) {
+                                            System.out.println(keyword);
+                                            doExecute += " -keywords=" + keyword;
+                                        }
+
+                                        System.out.println("doExecute: " + doExecute);
+                                        myCommand.exec( doExecute );
+                                    }
+                                    copyFile(newDest, file.getAbsolutePath());
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            String myIptcKeywords = "";
+                            if (pictureMetaData.getIPTC_KEYWORDS().isPresent()){
+                                myIptcKeywords = pictureMetaData.getIPTC_KEYWORDS().get();
+                            }
+
+                        }
+                    });
+            File directoryToPurge = new File(startsWithDirectory);
+            purgeDirectoryPostfixOriginal(directoryToPurge);
+            AcdpAccessor acdpAccessor = new AcdpAccessor();
+            File tempDirectoryToPurge = new File(tempDirectory);
+            acdpAccessor.purgeDirectory(tempDirectoryToPurge);
+
+            System.out.println("addVisionTagsToFiles end");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("addVisionTagsToFiles completed");
+    }
+    public String escapeSpaces(String iString) {
+        String oString = iString.replaceAll(" ", "\\\\ ");
+        return oString;
+    }
+    public void purgeDirectoryPostfixOriginal(File dir) {
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory())
+                purgeDirectoryPostfixOriginal(file);
+            if (file.getName().endsWith("_original")){
+                file.delete();
+            }
+        }
     }
     public void copyFilesDirectoryNameToACDP(String startsWithDirectory, String layOut) {
         try {
@@ -160,6 +252,11 @@ public class CopyDirectory {
         Path src = Paths.get(from);
         Path dest = Paths.get(to);
         try {
+            try {
+                Files.delete(dest);
+            } catch(Exception ex){
+
+            }
             Files.copy(src, dest);
         } catch (FileAlreadyExistsException ex){
             // do nothing
@@ -167,4 +264,11 @@ public class CopyDirectory {
         }
     }
 
+    public String getSubscriptionKey() {
+        return subscriptionKey;
+    }
+
+    public void setSubscriptionKey(String subscriptionKey) {
+        this.subscriptionKey = subscriptionKey;
+    }
 }
