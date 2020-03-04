@@ -25,31 +25,31 @@ import java.util.stream.Stream;
  */
 @Setup_Table({ "Directory", "File", "ID", "IptcKeywords" })
 public final class ImageTable extends CustomTable {
-	// Must be public if Setup is used.
-	@Setup_Column("Directory")
-	public final Column<String> DIRECTORY = CL.typeString();
-	@Setup_Column("File")
-	public final Column<String> FILE = CL.typeString();
-	@Setup_Column("ID")
-	public final Column<BigInteger> ID = CL.create(new BigIntegerType(false, 20));
-	@Setup_Column("IptcKeywords")
-	public final Column<String> IPTCKEYWORDS = CL.typeString();
+    // Must be public if Setup is used.
+    @Setup_Column("Directory")
+    public final Column<String> DIRECTORY = CL.ofString();
+    @Setup_Column("Directory")
+    public final Column<String> FILE = CL.ofString();
+    public final Column<BigInteger> ID = CL.create(new BigIntegerType(20));
 
-	/**
-	 * Do not create instances of this class!
-	 * If you create an instance of this class then calling any inherited method
-	 * will most likely fail.
-	 * Creating instances of this class is exclusively reserved to the
-	 * {@link PersonDB} class.
-	 */
-	public ImageTable() {
-		initialize(DIRECTORY, FILE, ID, IPTCKEYWORDS);
-	}
-	@Override
+    @Setup_Column("IptcKeywords")
+    public final Column<String> IPTCKEYWORDS = CL.ofString();
 
-	public final Stream<Row> rows(Column<?>... columns) {
+    /**
+     * Do not create instances of this class!
+     * If you create an instance of this class then calling any inherited method
+     * will most likely fail.
+     * Creating instances of this class is exclusively reserved to the
+     * {@link PersonDB} class.
+     */
+    public ImageTable() {
+        initialize(DIRECTORY, FILE, ID, IPTCKEYWORDS);
+    }
+    @Override
 
-		return super.rows(columns);
+    public final Stream<Row> rows(Column<?>... columns) {
 
-	}
+        return super.rows(columns);
+
+    }
 }

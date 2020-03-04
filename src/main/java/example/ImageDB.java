@@ -28,49 +28,49 @@ import java.security.NoSuchAlgorithmException;
  */
 
 @Setup_Database (
-	name = "ImageDB",
-	version = "1.0",
-	tables = { "Image" }
+        name = "ImageDB",
+        version = "1.0",
+        tables = { "Image" }
 )
 public final class ImageDB extends CustomDatabase {
-	public static final class CipherFactory implements ICipherFactory {
-	   private final IvParameterSpec iv = new IvParameterSpec(new byte[] {
-												114, -8, 22, -67, -71, 30, 118, -103,
-												51, -45, -110, -65, 16, -127, -73, 103 });
+    public static final class CipherFactory implements ICipherFactory {
+        private final IvParameterSpec iv = new IvParameterSpec(new byte[] {
+                114, -8, 22, -67, -71, 30, 118, -103,
+                51, -45, -110, -65, 16, -127, -73, 103 });
 
-	   private final Key key = new SecretKeySpec(new byte[] { 114, -8, 23, -67,
-	   											-71, 30, 118, -103, 51, -45, -110, -65,
-	   											16, -127, -73, 103 }, "AES");
+        private final Key key = new SecretKeySpec(new byte[] { 114, -8, 23, -67,
+                -71, 30, 118, -103, 51, -45, -110, -65,
+                16, -127, -73, 103 }, "AES");
 
-		@Override
-	   public final Cipher createAndInitWrCipher(boolean encrypt) throws
-	   					NoSuchAlgorithmException, NoSuchPaddingException,
-	   					InvalidKeyException, InvalidAlgorithmParameterException {
-	   	final Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
-	   	cipher.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, key,
-	   																							iv);
-	   	return cipher;
-	   }
+        @Override
+        public final Cipher createAndInitWrCipher(boolean encrypt) throws
+                NoSuchAlgorithmException, NoSuchPaddingException,
+                InvalidKeyException, InvalidAlgorithmParameterException {
+            final Cipher cipher = Cipher.getInstance("AES/CTR/NoPadding");
+            cipher.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, key,
+                    iv);
+            return cipher;
+        }
 
-		@Override
-	   public final Cipher createRoCipher() throws NoSuchAlgorithmException,
-																		NoSuchPaddingException {
-	   	return Cipher.getInstance("AES/CTR/NoPadding");
-	   }
+        @Override
+        public final Cipher createRoCipher() throws NoSuchAlgorithmException,
+                NoSuchPaddingException {
+            return Cipher.getInstance("AES/CTR/NoPadding");
+        }
 
-		@Override
-	   public final void initRoCipher(Cipher cipher, boolean encrypt) throws
-	   					InvalidKeyException, InvalidAlgorithmParameterException {
-	   	cipher.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, key,
-	   																							iv);
-	   }
-	}
+        @Override
+        public final void initRoCipher(Cipher cipher, boolean encrypt) throws
+                InvalidKeyException, InvalidAlgorithmParameterException {
+            cipher.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, key,
+                    iv);
+        }
+    }
 
-	@Setup_TableDeclaration("Image")
-	public final ImageTable imageTable = new ImageTable();
+    @Setup_TableDeclaration("Image")
+    public final ImageTable imageTable = new ImageTable();
 
-	public ImageDB(Path mainFile, int opMode, boolean writeProtect,
-            int consistencyNumber) {
-		open(mainFile, opMode, writeProtect, consistencyNumber, imageTable);
-	}
+    public ImageDB(Path mainFile, int opMode, boolean writeProtect,
+                   int consistencyNumber) {
+        open(mainFile, opMode, writeProtect, consistencyNumber, imageTable);
+    }
 }
