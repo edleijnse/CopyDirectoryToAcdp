@@ -103,11 +103,6 @@ public class ExtractPictureContentData {
     //    "https://northeurope.api.cognitive.microsoft.com/vision/v1.0/analyze";
 
 
-    public ExtractPictureContentData(String startsWithDirectory, String csvFile) {
-        this.startsWithDirectory = startsWithDirectory;
-        this.csvFile = csvFile;
-    }
-
 
     public void setSubstringKey(String myKey) {
         subscriptionKey = myKey;
