@@ -1,6 +1,9 @@
 package leijnse.info;
 
-import acdp.*;
+import acdp.Column;
+import acdp.Database;
+import acdp.Row;
+import acdp.Table;
 import example.ImageDB;
 import example.ImageTable;
 
@@ -10,12 +13,13 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import static java.nio.file.StandardCopyOption.*;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 
 public class AcdpAccessor {
@@ -261,10 +265,14 @@ public class AcdpAccessor {
     }
 
     public void purgeDirectory(File dir) {
-        for (File file : dir.listFiles()) {
-            if (file.isDirectory())
-                purgeDirectory(file);
-            file.delete();
+        try {
+            for (File file : dir.listFiles()) {
+                if (file.isDirectory())
+                    purgeDirectory(file);
+                file.delete();
+            }
+        } catch (Exception e) {
+
         }
     }
 
