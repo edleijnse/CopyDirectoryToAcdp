@@ -30,8 +30,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ExtractPictureContentData {
-    private String startsWithDirectory;
-    private String csvFile;
     private Map<String, Integer> locTags = new TreeMap<>();
 
     private String extractTags(String iTags) {
@@ -161,8 +159,9 @@ public class ExtractPictureContentData {
         PictureMetaData myPictureMetadata = ExtractPictureMetaData.getPictureMetaDataExif(file);
 
 
+        System.out.println("getPictureContent start");
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
-
+            System.out.println("getPictureContent httpClient start");
             // use httpClient (no need to close it explicitly)
             URIBuilder builder = new URIBuilder(uriBase);
 

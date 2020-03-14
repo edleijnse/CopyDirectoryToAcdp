@@ -2,7 +2,6 @@ package leijnse.info;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -78,11 +77,20 @@ public class CopyDirectory {
                             sourceFileAbsolutePath = file.getAbsolutePath();
                             String sourceFileName = file.getName();
                             String sourceParentName = file.getParent();
+
                             try {
                                 ii[0]++;
                                 System.out.println("absolute: " + sourceFileAbsolutePath + ", parent: " + sourceParentName  +", filename: " + sourceFileName);
                                 System.out.println("keywords: " + myIptcKeywords);
-                                acdpAccessor.writeRowToImageTable(layOut,sourceParentName,sourceFileName, BigInteger.valueOf(ii[0]),myIptcKeywords);
+                                myIptcKeywords = myIptcKeywords.replaceAll("[^a-zA-Z0-9]", ".");
+                                myIptcKeywords = myIptcKeywords.replaceAll("\\.\\.\\.", "\\.");
+                                System.out.println("myIptcKeywords: " + myIptcKeywords);
+
+
+                                String[]  myKeywords = myIptcKeywords.split("\\.");
+
+                                byte[] imageByteArray = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
+                                acdpAccessor.writeRowToImageTable(layOut,sourceParentName,sourceFileName,myKeywords,imageByteArray);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -184,8 +192,8 @@ public class CopyDirectory {
         System.out.println("addVisionTagsToFiles completed");
     }
     public String escapeSpaces(String iString) {
-        String oString = iString.replaceAll(" ", "\\\\ ");
-        return oString;
+       String oString = iString.replaceAll(" ", "\\\\ ");
+       return oString;
     }
     public void purgeDirectoryPostfixOriginal(File dir) {
         for (File file : dir.listFiles()) {
@@ -241,8 +249,9 @@ public class CopyDirectory {
                             System.out.println("myIpctKeyWords: " + myIptcKeyWords);
                             try {
                                 ii[0]++;
+                                byte[] imageByteArray = Files.readAllBytes(Paths.get(file.getAbsolutePath()));
                                 System.out.println("Keywords: "+ myIptcKeyWords + ", absolute: " + sourceFileAbsolutePath + ", parent: " + sourceParentName  +", filename: " + sourceFileName);
-                                acdpAccessor.writeRowToImageTable(layOut,sourceParentName,sourceFileName, BigInteger.valueOf(ii[0]),myIptcKeyWords);
+                                acdpAccessor.writeRowToImageTable(layOut,sourceParentName,sourceFileName,myIptcKeyWords.split("."),imageByteArray);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
