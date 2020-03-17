@@ -110,8 +110,9 @@ public class AcdpAccessor {
         return anzahlRows[0];
 
     }
-    public int selectAllKeywordsFromImageTable(String databaseURL) {
-        final int[] anzahlRows = {0};
+    public ImageKeywordsList selectAllKeywordsFromImageTable(String databaseURL) {
+        ImageKeywordsList imageKeywordsList = new ImageKeywordsList();
+        List<ImageKeyword> myImageKeywordsList = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(databaseURL)) {
             String sql = "select * from ImageKeywordsAll";
             Statement statement = connection.createStatement();
@@ -120,15 +121,18 @@ public class AcdpAccessor {
             while (result.next()) {
                 String keyword = result.getString("KEYWORD");
                 int total = result.getInt("total");
-
-                System.out.println( keyword + ", " + total);
+                ImageKeyword imageKeyword = new ImageKeyword();
+                imageKeyword.setKEYWORD(keyword);
+                imageKeyword.setTotal(total);
+                myImageKeywordsList.add(imageKeyword);
             }
-            return anzahlRows[0];
+            imageKeywordsList.setImageKeywordList(myImageKeywordsList);
+            return imageKeywordsList;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return anzahlRows[0];
+        return imageKeywordsList;
     }
 
     /*

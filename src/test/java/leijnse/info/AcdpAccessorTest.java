@@ -60,8 +60,11 @@ public class AcdpAccessorTest {
 
         String databaseURL = "jdbc:ucanaccess://src//data//MsAccess//AccessImageDatabase.accdb";
 
-        int anzColumns = testee.selectAllKeywordsFromImageTable(databaseURL);
-        // assertEquals(2, anzColumns);
+        ImageKeywordsList imageKeywordsList = testee.selectAllKeywordsFromImageTable(databaseURL);
+        imageKeywordsList.getImageKeywordList().forEach(imageKeyword -> {
+            System.out.println(imageKeyword.KEYWORD + ", " + imageKeyword.total);
+                }
+        );
     }
 
 

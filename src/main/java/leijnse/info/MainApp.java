@@ -41,7 +41,11 @@ public class MainApp {
         // List<ImageRow> imageWithAllKeywords = acdpAccessor.selectFromImageTable(false, "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Locarno,Valentina");
         // System.out.println(xStream.toXML(imageWithAllKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
-        acdpAccessor.selectAllKeywordsFromImageTable("jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
+        ImageKeywordsList imageKeywordsList = acdpAccessor.selectAllKeywordsFromImageTable("jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
+        imageKeywordsList.getImageKeywordList().forEach(imageKeyword -> {
+                    System.out.println(imageKeyword.KEYWORD +", " +  imageKeyword.total);
+                }
+        );
     }
 
 }
