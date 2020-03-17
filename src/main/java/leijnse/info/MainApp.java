@@ -32,7 +32,7 @@ public class MainApp {
         // "jdbc:ucanaccess://src//data//MsAccess//AccessImageDatabase.accdb";
         // "jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb"
 
-        acdpAccessor.copyAllRowsFromImageTableToAccess("E:\\acdp\\ImageDatabase\\run\\ImageDBRun\\layout","jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
+        // acdpAccessor.copyAllRowsFromImageTableToAccess("E:\\acdp\\ImageDatabase\\run\\ImageDBRun\\layout","jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
         // acdpAccessor.readAllRowsFromImageTable("/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         // List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(false,"/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Hochzeit");
         // XStream xStream = new XStream();
@@ -41,7 +41,7 @@ public class MainApp {
         // List<ImageRow> imageWithAllKeywords = acdpAccessor.selectFromImageTable(false, "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Locarno,Valentina");
         // System.out.println(xStream.toXML(imageWithAllKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
-
+        acdpAccessor.selectAllKeywordsFromImageTable("jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
     }
 
 }

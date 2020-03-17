@@ -110,7 +110,26 @@ public class AcdpAccessor {
         return anzahlRows[0];
 
     }
+    public int selectAllKeywordsFromImageTable(String databaseURL) {
+        final int[] anzahlRows = {0};
+        try (Connection connection = DriverManager.getConnection(databaseURL)) {
+            String sql = "select * from ImageKeywordsAll";
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
 
+            while (result.next()) {
+                String keyword = result.getString("KEYWORD");
+                int total = result.getInt("total");
+
+                System.out.println( keyword + ", " + total);
+            }
+            return anzahlRows[0];
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return anzahlRows[0];
+    }
 
     /*
     VORBEREITUNG: (Email von Beat Hörmann an Ed Leijnsse, 2020-02-19)

@@ -54,6 +54,16 @@ public class AcdpAccessorTest {
         assertEquals(2, anzColumns);
     }
 
+    @Test
+    public void selectAllKeywordsFromImageTableTest() throws IOException {
+        AcdpAccessor testee = new AcdpAccessor();
+
+        String databaseURL = "jdbc:ucanaccess://src//data//MsAccess//AccessImageDatabase.accdb";
+
+        int anzColumns = testee.selectAllKeywordsFromImageTable(databaseURL);
+        // assertEquals(2, anzColumns);
+    }
+
 
     @Test
     public void writeRowsToImageTableAndreadAllRowsFromImageTable() throws IOException {
