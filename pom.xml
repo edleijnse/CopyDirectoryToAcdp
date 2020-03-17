@@ -64,6 +64,34 @@
       <artifactId>exiftool-lib</artifactId>
       <version>2.3.0</version>
     </dependency>
+    <dependency>
+      <groupId>net.sf.ucanaccess</groupId>
+      <artifactId>ucanaccess</artifactId>
+      <version>5.0.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>2.4.0</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.healthmarketscience.jackcess/jackcess -->
+    <dependency>
+      <groupId>com.healthmarketscience.jackcess</groupId>
+      <artifactId>jackcess</artifactId>
+      <version>3.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+
+
 
     <dependency>
       <groupId>org.apache.camel</groupId>
@@ -171,16 +199,13 @@
                   <include>org.apache.httpcomponents:httpcore-nio</include>
                   <include>org.apache.httpcomponents:httpclient</include>
                   <include>commons-logging:commons-logging</include>
+                  <include>net.sf.ucanaccess:ucanaccess</include>
                 </includes>
               </artifactSet>
             </configuration>
           </execution>
         </executions>
       </plugin>
-
-
-
-
     </plugins>
   </build>
 

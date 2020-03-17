@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -20,7 +18,7 @@ public class CopyDirectoryTest {
     @Before
     public void setUp() throws Exception {
         AcdpAccessor acdpPrepare = new AcdpAccessor();
-        acdpPrepare.copyLayout(DIR_EMPTEE, DIR_RUN);
+        acdpPrepare.replaceFolder(DIR_EMPTEE, DIR_RUN);
     }
 
     @Test

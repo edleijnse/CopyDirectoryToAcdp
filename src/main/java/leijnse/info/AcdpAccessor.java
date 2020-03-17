@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+import java.sql.*;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
@@ -23,7 +24,9 @@ public class AcdpAccessor {
         AtomicInteger anzRows = new AtomicInteger();
         anzRows.set(Integer.valueOf(0));
 
-        try (ImageDB db = new ImageDB(Paths.get(myLayout), -1, true)) {
+
+
+            try (ImageDB db = new ImageDB(Paths.get(myLayout), -1, true)) {
             ImageTable myTable = db.imageTable;
             // System.out.println("Number of columns: " + myTable.getColumns().length);
             myTable.rows().findFirst().ifPresent(row -> {
@@ -61,6 +64,53 @@ public class AcdpAccessor {
             return anzahlRows;
         }
     }
+
+    public int copyAllRowsFromImageTableToAccess(String myLayout, String databaseURL) {
+        final int[] anzahlRows = {0};
+        try (Connection connection = DriverManager.getConnection(databaseURL)) {
+            String sql = "INSERT INTO ImageTable (DIRECTORY, FILE) VALUES (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            String sqlKeywords = "INSERT INTO ImageKeywords (FILE, KEYWORD) VALUES (?,?)";
+            PreparedStatement preparedStatementKeywords = connection.prepareStatement(sqlKeywords);
+
+            try (ImageDB db = new ImageDB(Paths.get(myLayout), -1, false)) {
+
+                ImageTable myTable = db.imageTable;
+                myTable.rows(myTable.DIRECTORY, myTable.FILE, myTable.IPTCKEYWORDS, myTable.IMAGE).forEach(row ->{
+                    System.out.println("DIRECTORY: " + row.get(myTable.DIRECTORY));
+                    System.out.println("FILE: " + row.get(myTable.FILE));
+                    String myDirectory =  row.get(myTable.DIRECTORY);
+                    String myFile =  row.get(myTable.FILE);
+                    try {
+                        preparedStatement.setString(1,myDirectory);
+                        preparedStatement.setString(2,myFile);
+                        int rowCount = preparedStatement.executeUpdate();
+
+                        for (String kw : row.get(myTable.IPTCKEYWORDS)) {
+                            if (kw != null && !kw.isEmpty()) {
+                                preparedStatementKeywords.setString(1, myFile);
+                                preparedStatementKeywords.setString(2,kw);
+                                int rowCountKeywords = preparedStatementKeywords.executeUpdate();
+                            }
+                        }
+
+                        if (rowCount > 0) {
+                            System.out.println("A row has been inserted successfully.");
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    anzahlRows[0]++;
+                });
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return anzahlRows[0];
+
+    }
+
 
     /*
     VORBEREITUNG: (Email von Beat Hörmann an Ed Leijnsse, 2020-02-19)
@@ -144,10 +194,10 @@ public class AcdpAccessor {
     }
 
 
-    public void copyLayout(String fromLayout, String toLayout) throws IOException {
-        Path sourcePath = Paths.get(fromLayout);
-        Path destinationPath = Paths.get(toLayout);
-        File directoryToPurge = new File(toLayout);
+    public void replaceFolder(String fromFolder, String toFolder) throws IOException {
+        Path sourcePath = Paths.get(fromFolder);
+        Path destinationPath = Paths.get(toFolder);
+        File directoryToPurge = new File(toFolder);
         purgeDirectory(directoryToPurge);
         copyFolder(sourcePath, destinationPath);
 

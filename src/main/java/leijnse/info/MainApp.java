@@ -21,13 +21,18 @@ public class MainApp {
         main.run(args);*/
         CopyDirectory copyDirectory = new CopyDirectory();
         // copyDirectory.copyFilesToACDP("/media/psf/MyDrive01/BilderImport/Annalis/Bilder nachbearbeitet", "/media/psf/MyDrive01/BilderImport/Annalis/BilderExportBearbeitet3");
-        copyDirectory.copyFilesToACDP("E:\\acdp\\Annalis", "E:\\acdp\\acdpImageAlbums\\layout");
+        // copyDirectory.copyFilesToACDP("E:\\acdp\\Annalis", "E:\\acdp\\acdpImageAlbums\\layout");
 
         // copyDirectory.copyFilesDirectoryNameToACDP("/media/psf/MyDrive01/MyDrive01Original/bilderexport", "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         // copyDirectory.copyFilesDirectoryNameToACDP("E:\\acdp\\allAlbums", "E:\\acdp\\acdpImageAlbums\\layout");
 
 
+
         AcdpAccessor acdpAccessor = new AcdpAccessor();
+        // "jdbc:ucanaccess://src//data//MsAccess//AccessImageDatabase.accdb";
+        // "jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb"
+
+        acdpAccessor.copyAllRowsFromImageTableToAccess("E:\\acdp\\ImageDatabase\\run\\ImageDBRun\\layout","jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
         // acdpAccessor.readAllRowsFromImageTable("/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         // List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(false,"/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Hochzeit");
         // XStream xStream = new XStream();
