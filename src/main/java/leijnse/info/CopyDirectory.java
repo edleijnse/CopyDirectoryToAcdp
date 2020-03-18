@@ -108,7 +108,7 @@ public class CopyDirectory {
 
             System.out.println("addVisionTagsToFiles start: " + startsWithDirectory) ;
             AcdpAccessor acdpAccessor = new AcdpAccessor();
-            String newRootPreFix = "/newRoot";
+            String newRootPreFix = "\\newRoot";
             String newRootDirectory = tempDirectory + newRootPreFix;
             File newRootDirectoryToPurge = new File(newRootDirectory);
             acdpAccessor.purgeDirectory(newRootDirectoryToPurge);
@@ -145,7 +145,7 @@ public class CopyDirectory {
                                 try {
                                     PictureMetaData myMetadata = extract.getPictureContent(fileCompressed);
 
-                                    String newDest = tempDirectory + "/" + file.getName();
+                                    String newDest = tempDirectory + "\\" + file.getName();
                                     copyFile(file.getAbsolutePath(), newDest);
                                     Command myCommand = new Command(startsWithDirectory);
 
@@ -162,7 +162,17 @@ public class CopyDirectory {
                                         System.out.println("doExecute: " + doExecute);
                                         myCommand.exec( doExecute );
                                     }
-                                    copyFile(newDest, file.getAbsolutePath().replaceAll(newRootDirectory, startsWithDirectory));
+                                    System.out.println("absolutePath: " + file.getAbsolutePath());
+                                    System.out.println("newRootDirectory: " + newRootDirectory);
+                                    String myNewRootDirectory = newRootDirectory.replaceAll("\\\\", "/");
+                                    System.out.println("myNewRootDirectory: " + myNewRootDirectory);
+                                    String myNewAbsolutePath = file.getAbsolutePath().replaceAll("\\\\", "/");
+                                    System.out.println("myNewAbsolutePath: " + myNewAbsolutePath);
+                                    String myStartsWithDirectory = startsWithDirectory.replaceAll ("\\\\", "/");
+                                    System.out.println("startsWithDirectory: " + startsWithDirectory);
+                                    String origDest = myNewAbsolutePath.replaceAll(myNewRootDirectory,myStartsWithDirectory);
+                                    System.out.println("OrigDest: " + origDest);
+                                    copyFile(newDest, origDest);
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -178,7 +188,7 @@ public class CopyDirectory {
 
                         }
                     });
-            File directoryToPurge = new File(startsWithDirectory);
+            File directoryToPurge = new File(tempDirectory);
             purgeDirectoryPostfixOriginal(directoryToPurge);
 
             File tempDirectoryToPurge = new File(tempDirectory);

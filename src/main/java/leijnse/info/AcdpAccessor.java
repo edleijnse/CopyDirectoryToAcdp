@@ -251,6 +251,31 @@ public class AcdpAccessor {
         } catch (Exception e) {
         }
     }
+    public static boolean renameFile(File toBeRenamed, String new_name) {
+        //need to be in the same path
+        File fileWithNewName = new File(toBeRenamed.getParent(), new_name);
+        if (fileWithNewName.exists()) {
+            return false;
+        }
+        // Rename file (or directory)
+        return toBeRenamed.renameTo(fileWithNewName);
+    }
+
+    public void renameFilesInDirectory(File dir) {
+        try {
+            for (File file : dir.listFiles()) {
+                if (file.isDirectory()){
+
+                } else {
+                  boolean success = renameFile(file, file.getName().replaceAll(" ","_"));
+                  if (!success){
+                      System.out.println("file not renamed: " + file.getName());
+                  }
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
 
     public static <T> Stream<T>
     convertIterator(Iterator<T> iterator) {

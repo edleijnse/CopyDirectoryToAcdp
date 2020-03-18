@@ -3,7 +3,10 @@ package leijnse.info;
 import acdp.Row;
 // import com.thoughtworks.xstream.XStream;
 
+import java.io.File;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,14 +28,17 @@ public class MainApp {
 
         // copyDirectory.copyFilesDirectoryNameToACDP("/media/psf/MyDrive01/MyDrive01Original/bilderexport", "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         // copyDirectory.copyFilesDirectoryNameToACDP("E:\\acdp\\allAlbums", "E:\\acdp\\acdpImageAlbums\\layout");
+        String mySubscriptionKey = new String(Files.readAllBytes(Paths.get("C:\\Users\\edlei\\OneDrive\\Finanzen\\Lizensen\\Microsoft\\keys\\subscriptionKey1")));
 
+        copyDirectory.setSubscriptionKey(mySubscriptionKey);
+        // copyDirectory.addVisionTagsToFiles("E:\\acdp\\vogels", "E:\\temp");
 
 
         AcdpAccessor acdpAccessor = new AcdpAccessor();
         // "jdbc:ucanaccess://src//data//MsAccess//AccessImageDatabase.accdb";
         // "jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb"
 
-        // acdpAccessor.copyAllRowsFromImageTableToAccess("E:\\acdp\\ImageDatabase\\run\\ImageDBRun\\layout","jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
+        acdpAccessor.copyAllRowsFromImageTableToAccess("E:\\acdp\\ImageDatabase\\run\\ImageDBRun\\layout","jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
         // acdpAccessor.readAllRowsFromImageTable("/media/psf/MyDrive01/acdp/acdpImageDirectories/layout");
         // List<ImageRow> imageWithSomeKeywords = acdpAccessor.selectFromImageTable(false,"/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Hochzeit");
         // XStream xStream = new XStream();
@@ -41,11 +47,12 @@ public class MainApp {
         // List<ImageRow> imageWithAllKeywords = acdpAccessor.selectFromImageTable(false, "/media/psf/MyDrive01/acdp/acdpImageDirectories/layout", "-","-", BigInteger.valueOf(0),"Locarno,Valentina");
         // System.out.println(xStream.toXML(imageWithAllKeywords));
         System.out.println("-----------------------------------------------------------------------------------------------------");
-        ImageKeywordsList imageKeywordsList = acdpAccessor.selectAllKeywordsFromImageTable("jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
-        imageKeywordsList.getImageKeywordList().forEach(imageKeyword -> {
-                    System.out.println(imageKeyword.KEYWORD +", " +  imageKeyword.total);
-                }
-        );
+        // ImageKeywordsList imageKeywordsList = acdpAccessor.selectAllKeywordsFromImageTable("jdbc:ucanaccess://E://acdp//AccessImageDatabase.accdb");
+        // imageKeywordsList.getImageKeywordList().forEach(imageKeyword -> {
+        //            System.out.println(imageKeyword.KEYWORD +", " +  imageKeyword.total);
+        //        }
+        // );
+        // acdpAccessor.renameFilesInDirectory(new File("E:\\acdp\\vogels"));
     }
 
 }
